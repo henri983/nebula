@@ -59,10 +59,10 @@ body {
   top: -30vmax;
   left: -30vmax;
   background: radial-gradient(circle at center, 
-    rgba(0, 229, 255, 0.2) 0%, 
-    rgba(37, 211, 102, 0.15) 25%, 
-    rgba(255, 214, 0, 0.1) 50%, 
-    rgba(255, 109, 0, 0.1) 75%, 
+    rgba(0, 229, 255, 0.25) 0%, 
+    rgba(37, 211, 102, 0.2) 25%, 
+    rgba(252, 175, 69, 0.15) 50%, 
+    rgba(245, 96, 64, 0.15) 75%, 
     transparent 100%);
   filter: blur(100px);
   animation: radiantMove 20s ease-in-out infinite alternate;
@@ -75,8 +75,66 @@ body {
 }
 
 @keyframes radiantMove {
-  0% { transform: translate(-5%, -5%) rotate(0deg) scale(1); filter: brightness(1) blur(100px); }
-  100% { transform: translate(5%, 5%) rotate(15deg) scale(1.1); filter: brightness(1.3) blur(120px); }
+  0% { transform: translate(-5%, -5%) rotate(0deg) scale(1); filter: brightness(1) blur(100px) hue-rotate(0deg); }
+  100% { transform: translate(5%, 5%) rotate(15deg) scale(1.1); filter: brightness(1.3) blur(120px) hue-rotate(360deg); }
+}
+
+/* --- MOBILE & RESPONSIVE OPTIMIZATIONS --- */
+@media (max-width: 768px) {
+  .uploader-container {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .drop-zone {
+    padding: 40px 20px !important;
+  }
+
+  .orbit-path {
+    width: min(90vw, 400px) !important;
+    height: min(90vw, 400px) !important;
+    opacity: 0.2;
+  }
+
+  .node-icon-wrapper {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .node-label {
+    display: none;
+  }
+
+  .active .node-label {
+    display: block;
+    font-size: 8px;
+    margin-top: 4px;
+  }
+
+  .central-focus {
+    width: 100%;
+    padding: 0 12px !important;
+  }
+
+  .analytics-card {
+    padding: 24px !important;
+    max-height: 80vh;
+  }
+
+  h1 { font-size: 2.2rem !important; }
+  h2 { font-size: 1.4rem !important; }
+
+  .bento-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .bento-2x2, .bento-2x1 {
+    grid-column: span 1 !important;
+    grid-row: auto !important;
+  }
+
+  .val-hero { font-size: 2.5rem !important; }
 }
 
 /* --- DOUBLE-BEZEL / HARDWARE SURFACES --- */
