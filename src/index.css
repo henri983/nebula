@@ -65,19 +65,31 @@ body {
     rgba(255, 109, 0, 0.1) 75%, 
     transparent 100%);
   filter: blur(100px);
-  /* Temps augmenté à 40s/60s pour une fluidité maximale sur mobile (moins de stress GPU) */
-  animation: radiantMove 40s ease-in-out infinite alternate;
 }
 
 .stars-background::after {
-  animation: radiantMove 60s ease-in-out infinite alternate-reverse;
   top: auto; left: auto; bottom: -30vmax; right: -30vmax;
   opacity: 0.9;
 }
 
-@keyframes radiantMove {
-  0% { transform: translate(-10%, -10%) rotate(0deg) scale(1); filter: brightness(1) blur(100px) hue-rotate(0deg); }
-  100% { transform: translate(10%, 10%) rotate(15deg) scale(1.1); filter: brightness(1.3) blur(120px) hue-rotate(360deg); }
+/* Animations activées uniquement sur Desktop (> 768px) */
+@media (min-width: 769px) {
+  .stars-background::before {
+    animation: radiantMove 40s ease-in-out infinite alternate;
+  }
+  .stars-background::after {
+    animation: radiantMove 60s ease-in-out infinite alternate-reverse;
+  }
+  .orbit-path {
+    animation: orbitRotate 120s linear infinite;
+  }
+  .orbit-path::after {
+    animation: orbitRotate 180s linear infinite reverse;
+  }
+  @keyframes radiantMove {
+    0% { transform: translate(-10%, -10%) rotate(0deg) scale(1); filter: brightness(1) blur(100px) hue-rotate(0deg); }
+    100% { transform: translate(10%, 10%) rotate(15deg) scale(1.1); filter: brightness(1.3) blur(120px) hue-rotate(360deg); }
+  }
 }
 
 /* --- MOBILE & RESPONSIVE OPTIMIZATIONS --- */
@@ -96,14 +108,8 @@ body {
     width: min(90vw, 400px) !important;
     height: min(90vw, 400px) !important;
     opacity: 0.2;
-    /* Rotation ralentie sur mobile pour économiser les ressources */
-    animation-duration: 200s !important;
   }
   
-  .orbit-path::after {
-    animation-duration: 300s !important;
-  }
-
   .node-icon-wrapper {
     width: 52px !important;
     height: 52px !important;
@@ -145,7 +151,6 @@ body {
 
   .val-hero { font-size: 2.2rem !important; }
 
-  /* Adoucissement du flou sur mobile pour améliorer la fluidité */
   .core-inner, .glass-panel {
     backdrop-filter: blur(15px) !important;
   }
@@ -286,16 +291,6 @@ h2 {
   border: 2px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
   pointer-events: none;
-  animation: orbitRotate 120s linear infinite;
-}
-
-.orbit-path::after {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  border: 1px dashed rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
-  animation: orbitRotate 180s linear infinite reverse;
 }
 
 @keyframes orbitRotate {
